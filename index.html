@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartHire</title>
+    <!-- Linking the CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-messages">
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+    <header class="navbar">
+    <div class="nav-left">
+       <div class="logo"><a href="index.html">SmartHire</a></div>
+    </div>
+
+    <div class="nav-right">
+      <a href="{{ url_for('signin') }}" class="btn sign-in">Sign In</a>
+      <a href="{{ url_for('register') }}" class="btn get-started">Get Started</a>
+    </div>
+  </header>
+</body>
+</html>

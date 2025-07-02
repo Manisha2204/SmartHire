@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Candidate Application</title>
+</head>
+<body>
+  <header class="navbar">
+    <div class="nav-left">
+      <div class="logo"><a href="{{ url_for('home') }}">SmartHire</a></div>
+    </div>
+  </header>
+
+  <main class="form-section">
+    <h2>Candidate Application</h2>
+    <div class="form-container">
+      <form action="{{ url_for('submit_candidate') }}" method="POST" enctype="multipart/form-data">
+
+        <!-- Candidate Type -->
+        <label>Candidate Type:</label>
+        <select id="candidateType" name="candidate_type" required>
+          <option value="">Select</option>
+          <option value="fresher">Fresher</option>
+          <option value="experienced">Experienced</option>
+        </select>
+
+        <!-- Name -->
+        <label>First Name:</label>
+        <div class="split-row">
+          <select name="title" required>
+            <option value="">Title</option>
+            <option>Mr.</option>
+            <option>Ms.</option>
+            <option>Mrs.</option>
+          </select>
+          <input type="text" name="first_name" pattern="^[A-Za-z]+$" placeholder="First Name" required />
+        </div>
+
+        <label>Last Name:</label>
+        <input type="text" name="last_name" pattern="^[A-Za-z]+$" placeholder="Last Name" required />
+
+        <!-- Contact -->
+        <label>Email ID:</label>
+        <input type="email" name="email" placeholder="Email Address" required />
+
+        <label>Contact:</label>
+        <div class="split-row">
+          <select name="country_code" required>
+            <option value="+91">+91</option>
+            <option value="+1">+1</option>
+            <option value="+44">+44</option>
+          </select>
+          <input type="tel" name="phone" pattern="\d{10}" maxlength="10" placeholder="10-digit number" required />
+        </div>
+
+        <!-- Graduation & Gender -->
+        <label>Year of Graduation:</label>
+        <input type="text" name="graduation_year" pattern="\d{4}" maxlength="4" placeholder="YYYY" required />
+
+        <label>Gender:</label>
+        <select name="gender" required>
+          <option value="">Select</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+
+        <!-- Experience Details -->
+        <div id="experienceFields">
+          <label>Experience in Years:</label>
+          <input type="number" name="experience" min="0" max="50" placeholder="e.g., 2" />
+
+          <label>Current Employer:</label>
+          <input type="text" name="current_employer" placeholder="Company Name" />
+
+          <label>Current CTC:</label>
+          <input type="number" name="current_ctc" min="0" max="50" placeholder="e.g., 2" />
+
+          <label>Expected CTC:</label>
+          <input type="number" name="expected_ctc" min="0" max="50" placeholder="e.g., 2" />
+
+          <label>Notice Period:</label>
+          <select name="notice_period">
+            <option value="">Select</option>
+            <option>Immediately</option>
+            <option>1 Month</option>
+            <option>2 Months</option>
+            <option>3 Months</option>
+          </select>
+        </div>
+
+        <!-- Other Details -->
+        <label>Skill Set:</label>
+        <input type="text" name="skills" placeholder="e.g., Python, JavaScript" required />
+
+        <label>Source:</label>
+        <input type="text" name="source" required />
+
+        <label>Current Location:</label>
+        <input type="text" name="current_location" required />
+
+        <label>Preferred Location:</label>
+        <input type="text" name="preferred_location" required />
+
+        <label>Resume:</label>
+        <input type="file" name="resume" accept=".pdf,.doc,.docx" required />
+
+        <button type="submit" class="submit-btn">Submit Application</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- JavaScript to toggle experience fields -->
+  <script>
+    const typeSelect = document.getElementById('candidateType');
+    const expFields = document.getElementById('experienceFields');
+
+    function toggleExperienceFields() {
+      const isFresher = typeSelect.value === 'fresher';
+      [...expFields.querySelectorAll('input, select')].forEach(field => {
+        if (isFresher) {
+          field.setAttribute('readonly', true);
+          field.removeAttribute('required');
+          field.value = '';
+        } else {
+          field.removeAttribute('readonly');
+          field.setAttribute('required', true);
+        }
+      });
+    }
+
+    typeSelect.addEventListener('change', toggleExperienceFields);
+    window.addEventListener('DOMContentLoaded', toggleExperienceFields);
+  </script>
+</body>
+</html>

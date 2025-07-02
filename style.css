@@ -1,0 +1,406 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding-top: 70px;
+  background-color: #f4f6f9;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2d3e50;
+  padding: 15px 30px;
+}
+
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.logo a {
+  color: white;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.logo a:hover {
+  color: #05f370;
+}
+
+
+.nav-right {
+  display: flex;
+  gap: 15px;
+  padding-right: 50px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: 2px solid white;
+  border-radius: 6px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.sign-in:hover {
+  background-color: transparent;
+  color:  #05f370;
+  border-color: #05f370;
+}
+
+.get-started {
+  background-color:  #05f370;
+  color: #2d3e50;
+  border: none;
+}
+
+.get-started:hover {
+  background-color: #05f370;
+  color: rgb(31, 29, 29);
+}
+
+
+.main-content {
+  display: flex;
+  height: calc(100vh - 70px);
+}
+
+/* Left Side */
+.left-section {
+  width: 50%;
+  background-color: #2d3e50;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.circle-logo {
+  width: 100px;
+  height: 100px;
+  background-color: #05f370;
+  color: #2d3e50;
+  font-weight: bold;
+  font-size: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.idiom {
+  font-size: 20px;
+  text-align: center;
+  max-width: 300px;
+}
+
+/* Right Side */
+.right-section {
+  width: 50%;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main-heading {
+  font-size: 28px;
+  color: #2d3e50;
+  margin-bottom: 10px;
+}
+
+.join-box {
+  margin-bottom: 30px;
+}
+
+.join-box p {
+  font-size: 16px;
+}
+
+.join-box a {
+  color: #f30505;
+  text-decoration: none;
+}
+
+.form-box {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-box h3 {
+  margin-bottom: 20px;
+  color: #2d3e50;
+  text-align: center;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form input[type="tel"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+  gap: 8px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+
+.checkbox-label input {
+  margin-right: 8px;
+}
+
+.signup-btn {
+  width: 100%;
+  background-color: #05f370;
+  color: #2d3e50;
+  border: none;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.signup-btn:hover {
+  background-color: #00d85f;
+}
+
+.hero {
+  height: 100vh;
+  background: linear-gradient(to right, #d9e2ec, #f0f4f7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 70px;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.hero h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #2d3e50;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #4b4b4b;
+}
+
+.view-openings {
+  padding: 10px 20px;
+  background-color: #05f370;
+  color: #2d3e50;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.view-openings:hover {
+  background-color: #2db166;
+  color: white;
+}
+
+/* Job Openings Section */
+.jobs-section {
+  padding: 60px 30px;
+  background-color: #ffffff;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 30px;
+  color: #2d3e50;
+  margin-bottom: 40px;
+}
+
+.jobs-wrapper {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.job-category {
+  flex: 1 1 45%;
+}
+
+.job-category h3 {
+  font-size: 22px;
+  color: #2d3e50;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.job-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* .job-card {
+  background-color: #f5f5f5;
+  padding: 20px;
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  text-align: center;
+} */
+
+.job-card:hover {
+  transform: translateY(-5px);
+}
+
+.job-card h4 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #2d3e50;
+}
+
+.job-card p {
+  margin: 0;
+  color: #777;
+}
+
+.job-card {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background-color: #f5f5f5;
+  padding: 20px;
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  color: inherit;
+}
+
+
+.job-card:hover {
+  transform: translateY(-5px);
+  background-color: #e0ffe4;
+}
+
+.btn-card {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #05f370;
+  color: #2d3e50;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-card:hover {
+  background-color: #d80000;
+  color: white;
+}
+
+.form-section {
+  padding: 40px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.form-section h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2d3e50;
+}
+
+.form-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.split-row {
+  display: flex;
+  gap: 10px;
+}
+
+.split-row select,
+.split-row input {
+  flex: 1;
+}
+
+/* Submit Button */
+.submit-btn {
+  margin-top: 25px;
+  width: 100%;
+  background-color: #05f370;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  color: #2d3e50;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #00d85f;
+  color: white;
+}
+
+input:required:invalid {
+  border: 2px solid red;
+}
+
+  

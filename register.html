@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Recruiter Registration | SmartHire</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="nav-left">
+      <div class="logo"><a href="{{ url_for('home') }}">SmartHire</a></div>
+    </div>
+    <div class="nav-right">
+      <a href="{{ url_for('signin') }}" class="btn sign-in">Sign In</a>
+    </div>
+  </header>
+
+  <div class="main-content">
+    <div class="left-section">
+      <div class="circle-logo">TM</div>
+      <p class="idiom">“Quality talent drives great innovation”<br>– TurboModus</p>
+    </div>
+
+    <div class="right-section">
+      <h2 class="main-heading">SmartHire Recruit</h2>
+
+      <div class="form-box">
+        <h3>Are you a recruiter?<br>Sign up now.</h3>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <p style="color: {% if category == 'success' %}green{% else %}red{% endif %}; text-align: center;">
+                {{ message }}
+              </p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form id="recruiterForm" method="POST" action="{{ url_for('register_recruiter') }}">
+          <input type="text" name="full_name" placeholder="Full Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" id="password" name="password" placeholder="Password" required />
+          <input type="password" id="confirmPassword" placeholder="Retype Password" required />
+          <input type="tel" name="phone" placeholder="Phone Number" required />
+          
+          <label class="checkbox-label">
+            <input type="checkbox" id="terms" required />
+            I agree to the terms of service and privacy policy
+          </label>
+
+          <button type="submit" class="btn signup-btn">Sign Up</button>
+        </form>
+
+        </form>
+
+<p style="text-align: center; margin-top: 10px;">
+  Already a member? &nbsp<a href="{{ url_for('signin') }}">Sign In</a><br>
+  Looking to join? &nbsp <a href="{{ url_for('candidate') }}">Click here</a>
+
+</p>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("recruiterForm").addEventListener("submit", function (e) {
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+      const checkbox = document.getElementById("terms");
+      const inputs = this.querySelectorAll("input[required]");
+      let allFilled = true;
+
+      inputs.forEach(input => {
+        if (!input.value.trim()) {
+          input.style.border = "2px solid red";
+          allFilled = false;
+        } else {
+          input.style.border = "1px solid #ccc";
+        }
+      });
+
+      if (!checkbox.checked) {
+        alert("You must agree to the terms to continue.");
+        allFilled = false;
+      }
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        document.getElementById("confirmPassword").style.border = "2px solid red";
+        allFilled = false;
+      }
+
+      if (!allFilled) {
+        e.preventDefault(); // Stop submission
+        alert("Please fix the errors in the form.");
+      }
+    });
+  </script>
+
+</body>
+</html>
