@@ -71,6 +71,22 @@
       background-color: #f44336;
     }
 
+    .new_candidate{
+      background-color: transparent;
+      border: 1px solid #000;
+      color: black;
+      padding: 10px;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .new_candidate:hover{
+      background-color:rgb(14, 49, 114);
+      color: white;
+    }
+
     .main-content {
   flex: 1;
   padding: 30px;
@@ -185,9 +201,9 @@
       <div class="logo">SmartHire</div>
       <div class="nav-section">
         <h4>Main</h4>
-        <a href="#" class="nav-link">Dashboard</a>
+        <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
         <h4>Talent Management</h4>
-        <a href="#" class="nav-link">Candidates</a>
+        <a href="{{ url_for('candidates') }}" class="nav-link">Candidates</a>
       </div>
     </div>
     <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
@@ -195,36 +211,22 @@
 
   <!-- Right Main Content -->
   <div class="main-content">
+    {% if section == 'dashboard' %}
+    <!-- DASHBOARD SECTION -->
     <div class="dashboard-header">
       <h2>Dashboard</h2>
       <input type="text" class="search-bar" placeholder="Search..." />
     </div>
-
     <hr>
-
     <div class="welcome-section">
       <h3>Welcome, {{ name }}</h3>
     </div>
-
     <div class="cards-container">
-      <div class="status-card">
-        <h4>Applications</h4>
-        <p>{{ total_applications }}</p>
-      </div>
-      <div class="status-card">
-        <h4>Selected</h4>
-        <p>{{ selected_count }}</p>
-      </div>
-      <div class="status-card">
-        <h4>Pending</h4>
-        <p>{{ pending_count }}</p>
-      </div>
-      <div class="status-card">
-        <h4>Rejected</h4>
-        <p>{{ rejected_count }}</p>
-      </div>
+      <div class="status-card"><h4>Applications</h4><p>{{ total_applications }}</p></div>
+      <div class="status-card"><h4>Selected</h4><p>{{ selected_count }}</p></div>
+      <div class="status-card"><h4>Pending</h4><p>{{ pending_count }}</p></div>
+      <div class="status-card"><h4>Rejected</h4><p>{{ rejected_count }}</p></div>
     </div>
-
     <div class="table-container">
       <h3 style="color: #2d3e50; margin-bottom: 15px;">Candidate Overview</h3>
       <table>
@@ -241,24 +243,74 @@
         </thead>
         <tbody>
           {% for candidate in candidates %}
-<tr>
-  <td>{{ candidate.id }}</td>
-  <td>{{ candidate.first_name }} {{ candidate.last_name }}</td>
-  <td>{{ candidate.email }}</td>
-  <td>{{ candidate.phone }}</td>
-  <td>{{ candidate.candidate_type }}</td>
-  <td>{{ candidate.status }}</td>
-  <td>
-    <a href="{{ url_for('static', filename='resumes/' + candidate.resume_filename) }}" target="_blank">View</a>
-  </td>
-</tr>
-{% endfor %}
-
+          <tr>
+            <td>{{ candidate.id }}</td>
+            <td>{{ candidate.first_name }} {{ candidate.last_name }}</td>
+            <td>{{ candidate.email }}</td>
+            <td>{{ candidate.phone }}</td>
+            <td>{{ candidate.candidate_type }}</td>
+            <td>{{ candidate.status }}</td>
+            <td><a href="{{ url_for('static', filename='resumes/' + candidate.resume_filename) }}" target="_blank">View</a></td>
+          </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
+
+    {% elif section == 'candidates' %}
+    <!-- CANDIDATES SECTION -->
+    <div class="dashboard-header">
+      <h2>Candidates</h2>
+      <a href="{{ url_for('candidate') }}" class="new_candidate">+ New Candidate</a>
+    </div>
+    <hr>
+    <div class="cards-container">
+      <div class="status-card"><h4>Applied</h4><p>{{ total_applications }}</p></div>
+      <div class="status-card"><h4>Selected</h4><p>{{ selected_count }}</p></div>
+      <div class="status-card"><h4>Pending</h4><p>{{ pending_count }}</p></div>
+      <div class="status-card"><h4>Rejected</h4><p>{{ rejected_count }}</p></div>
+    </div>
+    <div class="table-container">
+      <h3 style="color: #2d3e50;">All Candidates</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Type</th>
+            <th>Experience</th>
+            <th>Resume</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for candidate in candidates %}
+          <tr>
+            <td>{{ candidate.id }}</td>
+            <td>{{ candidate.title }} {{ candidate.first_name }} {{ candidate.last_name }}</td>
+            <td>{{ candidate.email }}</td>
+            <td>{{ candidate.phone }}</td>
+            <td>{{ candidate.candidate_type }}</td>
+            <td>{{ candidate.experience }}</td>
+            <td><a href="{{ url_for('static', filename='resumes/' + candidate.resume_filename) }}" target="_blank">View</a></td>
+            <td>
+              <form method="POST" action="{{ url_for('update_status', candidate_id=candidate.id) }}">
+                <select name="status" class="status-dropdown" onchange="this.form.submit()">
+                  <option value="Pending" {% if candidate.status == 'Pending' %}selected{% endif %}>Pending</option>
+                  <option value="Shortlisted" {% if candidate.status == 'Shortlisted' %}selected{% endif %}>Shortlisted</option>
+                  <option value="Rejected" {% if candidate.status == 'Rejected' %}selected{% endif %}>Rejected</option>
+                </select>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
   </div>
 </div>
-
 </body>
 </html>
