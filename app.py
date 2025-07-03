@@ -88,12 +88,13 @@ def dashboard():
         cur.execute("SELECT COUNT(*) AS rejected FROM candidates WHERE status='Rejected'")
         rejected_count = cur.fetchone()['rejected']
 
-        cur.execute("SELECT * FROM candidates ORDER BY id DESC LIMIT 5")
+        cur.execute("SELECT * FROM candidates ORDER BY id ASC LIMIT 5")
         recent_candidates = cur.fetchall()
         cur.close()
 
         return render_template(
             "dashboard.html",
+            section='dashboard',
             name=session['recruiter_name'],
             total_applications=total_applications,
             selected_count=selected_count,
@@ -104,7 +105,6 @@ def dashboard():
     else:
         flash("Please sign in to access dashboard.", "error")
         return redirect(url_for('signin'))
-
 
 # ──────────────────────────────────────────────
 @app.route('/applications')
@@ -145,6 +145,41 @@ def candidate():
     return render_template('candidate.html')
 
 # ──────────────────────────────────────────────
+@app.route('/candidates')
+def candidates():
+    if 'recruiter_id' in session:
+        cur = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+        cur.execute("SELECT COUNT(*) AS total FROM candidates")
+        total_applications = cur.fetchone()['total']
+
+        cur.execute("SELECT COUNT(*) AS selected FROM candidates WHERE status='Shortlisted'")
+        selected_count = cur.fetchone()['selected']
+
+        cur.execute("SELECT COUNT(*) AS pending FROM candidates WHERE status='Pending'")
+        pending_count = cur.fetchone()['pending']
+
+        cur.execute("SELECT COUNT(*) AS rejected FROM candidates WHERE status='Rejected'")
+        rejected_count = cur.fetchone()['rejected']
+
+        cur.execute("SELECT * FROM candidates ORDER BY id ASC")
+        all_candidates = cur.fetchall()
+        cur.close()
+
+        return render_template(
+            "dashboard.html",
+            section='candidates',
+            name=session['recruiter_name'],
+            total_applications=total_applications,
+            selected_count=selected_count,
+            pending_count=pending_count,
+            rejected_count=rejected_count,
+            candidates=all_candidates
+        )
+    else:
+        return redirect(url_for('signin'))
+
+# ──────────────────────────────────────────────
 @app.route('/submit', methods=['POST'])
 def submit_candidate():
     data = request.form
@@ -181,6 +216,43 @@ def submit_candidate():
         flash("Error submitting application.", "error")
         return redirect(url_for('home'))
 
+# ──────────────────────────────────────────────
+@app.route('/update_status/<int:candidate_id>', methods=['POST'])
+def update_status(candidate_id):
+    if 'recruiter_id' in session:
+        new_status = request.form['status']
+        try:
+            cur = mysql.connection.cursor()
+            cur.execute("UPDATE candidates SET status = %s WHERE id = %s", (new_status, candidate_id))
+            mysql.connection.commit()
+            cur.close()
+            flash("Status updated successfully!", "success")
+        except Exception as e:
+            flash("Failed to update status.", "error")
+    return redirect(url_for('candidates'))
+
+# ──────────────────────────────────────────────
+
+# ──────────────────────────────────────────────
+@app.route('/feedback', methods=['GET'])
+def feedback():
+    return render_template('feedback.html')
+
+@app.route('/feedback', methods=['POST'])
+def submit_feedback():
+    name = request.form['name']
+    email = request.form['email']
+    message = request.form['message']
+
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO feedback (name, email, message) VALUES (%s, %s, %s)", (name, email, message))
+        mysql.connection.commit()
+        cur.close()
+        flash("Thank you for your feedback!", "success")
+    except Exception as e:
+        flash("Error submitting feedback.", "error")
+    return redirect(url_for('feedback'))
 # ──────────────────────────────────────────────
 if __name__ == '__main__':
     app.run(debug=True)
