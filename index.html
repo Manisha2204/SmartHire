@@ -1,31 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>SmartHire</title>
-    <!-- Linking the CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <title>SmartHire</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    <div class="flash-messages">
-      {% for category, message in messages %}
-        <div class="alert alert-{{ category }}">{{ message }}</div>
-      {% endfor %}
-    </div>
-  {% endif %}
-{% endwith %}
 
-    <header class="navbar">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <!-- Navbar -->
+  <header class="navbar">
     <div class="nav-left">
-       <div class="logo"><a href="index.html">SmartHire</a></div>
+      <div class="logo"><a href="{{ url_for('home') }}">SmartHire</a></div>
     </div>
-
     <div class="nav-right">
       <a href="{{ url_for('signin') }}" class="btn sign-in">Sign In</a>
       <a href="{{ url_for('register') }}" class="btn get-started">Get Started</a>
     </div>
   </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Find the Right Talent Faster</h1>
+      <p>SmartHire helps recruiters streamline hiring, manage applicants, and discover top candidates quickly.</p>
+      <a href="{{ url_for('register') }}" class="btn get-started">Start Hiring Now</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2>Why Choose SmartHire?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>All-in-One Dashboard</h3>
+        <p>Manage candidates, job postings, and interviews in one place.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Smart Filters</h3>
+        <p>Shortlist candidates based on skills, experience, and location instantly.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Resume Management</h3>
+        <p>Upload, view, and download resumes securely with one click.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <h2>How It Works</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <h3>1. Post a Job</h3>
+        <p>Create detailed job listings that attract top talent.</p>
+      </div>
+      <div class="step">
+        <h3>2. Review Applications</h3>
+        <p>View, filter, and track candidate applications easily.</p>
+      </div>
+      <div class="step">
+        <h3>3. Hire Smartly</h3>
+        <p>Make data-driven hiring decisions with real-time insights.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <h2>What Our Recruiters Say</h2>
+    <div class="testimonial-cards">
+      <div class="testimonial">
+        <p>“SmartHire has simplified our hiring process. We’re able to find and filter quality candidates faster than ever!”</p>
+        <h4>— Ananya Sharma, HR at TechNova</h4>
+      </div>
+      <div class="testimonial">
+        <p>“The dashboard and resume tools are game-changers. Everything we need is in one place.”</p>
+        <h4>— Ravi Mehta, Recruiter at CodeCraft</h4>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta">
+    <h2>Ready to Streamline Your Hiring?</h2>
+    <p>Create an account and start hiring smarter with SmartHire.</p>
+    <a href="{{ url_for('register') }}" class="btn get-started">Join Now</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 SmartHire. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
